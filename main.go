@@ -99,7 +99,7 @@ func main() {
 		fmt.Sprintf("node%d", *replicaID))
 
 	nh, nnh_err := dragonboat.NewNodeHost(config.NodeHostConfig{
-		RaftAddress:    *addr,
+		RaftAddress:    newloaclAddr,
 		NodeHostDir:    datadir,
 		RTTMillisecond: 100,
 	})
@@ -128,7 +128,7 @@ func main() {
 	go func(s *http.Server) {
 		log.Fatal(s.ListenAndServe())
 	}(&http.Server{
-		Addr:    *addr,
+		Addr:    newloaclAddr,
 		Handler: &handler{nh},
 	})
 	<-stop
